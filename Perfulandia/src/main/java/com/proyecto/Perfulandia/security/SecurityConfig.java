@@ -23,14 +23,29 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+            //PRODUCTOS
                 .requestMatchers(HttpMethod.GET, "/api/productos").hasAnyRole("GERENTE", "VENTAS", "LOGISTICA")
                 .requestMatchers(HttpMethod.POST, "/api/productos").hasRole("GERENTE")
                 .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasRole("GERENTE")
                 .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("GERENTE")
-                .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
+
+                //SUCURSALES
+                .requestMatchers("/api/sucursales/**").hasRole("GERENTE")
+
+                //VENTAS
+                .requestMatchers(HttpMethod.POST, "/api/ventas/**").hasAnyRole("VENTAS", "GERENTE")
+                .requestMatchers(HttpMethod.GET, "/api/ventas/**").hasAnyRole("VENTAS", "GERENTE")
+                .requestMatchers(HttpMethod.POST, "/api/ventas/**").hasRole("VENTAS")
+
+                //ENVIOS
+                .requestMatchers("/api/envios/**").hasRole("LOGISTICA")
+
+                //USUARIOS ADMIN    
+                .requestMatchers("/api/admin/usuarios/**").hasRole("ADMIN")
+
                 .anyRequest().authenticated()
             )
-            .formLogin(Customizer.withDefaults());
+            .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
@@ -46,3 +61,4 @@ public class SecurityConfig {
     }
 
 }
+
