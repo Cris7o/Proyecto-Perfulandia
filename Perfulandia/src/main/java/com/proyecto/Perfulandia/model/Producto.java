@@ -3,6 +3,7 @@ package com.proyecto.Perfulandia.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class Producto {
     private double precio;
 
     @ManyToOne
+    @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 
 }

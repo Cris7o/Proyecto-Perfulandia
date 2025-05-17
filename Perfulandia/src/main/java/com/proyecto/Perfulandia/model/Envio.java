@@ -2,19 +2,24 @@ package com.proyecto.Perfulandia.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDate;
 
 @Entity
+@Data
 public class Envio {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String direccionEntrega;
+    private String destino;
+    private String estado; // Ejemplo: "Pendiente", "En camino", "Entregado"
     private LocalDate fechaEnvio;
 
-    @OneToOne
-    private Venta Venta;
+    @ManyToOne
+    @JoinColumn(name = "venta_id")
+    private Venta venta; // Referencia a la venta relacionada
 }

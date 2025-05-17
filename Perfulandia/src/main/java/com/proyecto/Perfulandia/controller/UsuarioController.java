@@ -2,6 +2,8 @@ package com.proyecto.Perfulandia.controller;
 
 import com.proyecto.Perfulandia.model.Usuario;
 import com.proyecto.Perfulandia.service.UsuarioService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.events.Event.ID;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
+    @Autowired
     private final UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {
