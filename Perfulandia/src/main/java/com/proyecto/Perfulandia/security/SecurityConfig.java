@@ -23,6 +23,12 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+
+            // Swagger - permitir sin autenticación
+            .requestMatchers("/api/**","/v3/api-docs/**","/swagger-ui.html").permitAll()
+            
+            .requestMatchers(HttpMethod.GET, "/api/productos").permitAll()
+
             //PRODUCTOS
                 .requestMatchers(HttpMethod.GET, "/api/productos").hasAnyRole("GERENTE", "VENTAS", "LOGISTICA")
                 .requestMatchers(HttpMethod.POST, "/api/productos").hasRole("GERENTE")
